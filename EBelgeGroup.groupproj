@@ -1,0 +1,48 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{0887EBC7-1470-4324-BE9F-E088EC5DEB23}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="EBelge.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="EBelgeTest.dproj">
+            <Dependencies>EBelge.dproj</Dependencies>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="EBelge">
+        <MSBuild Projects="EBelge.dproj"/>
+    </Target>
+    <Target Name="EBelge:Clean">
+        <MSBuild Projects="EBelge.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="EBelge:Make">
+        <MSBuild Projects="EBelge.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="EBelgeTest" DependsOnTargets="EBelge">
+        <MSBuild Projects="EBelgeTest.dproj"/>
+    </Target>
+    <Target Name="EBelgeTest:Clean" DependsOnTargets="EBelge:Clean">
+        <MSBuild Projects="EBelgeTest.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="EBelgeTest:Make" DependsOnTargets="EBelge:Make">
+        <MSBuild Projects="EBelgeTest.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="EBelge;EBelgeTest"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="EBelge:Clean;EBelgeTest:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="EBelge:Make;EBelgeTest:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>
