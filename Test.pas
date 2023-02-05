@@ -6,7 +6,8 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.Buttons, Vcl.Mask,
   Vcl.ComCtrls, Vcl.ExtCtrls, Vcl.Grids, StrUtils, System.Generics.Collections,
-  Vcl.OleCtrls, SHDocVw;
+  Vcl.OleCtrls, SHDocVw,
+  UBLDespatchAdvice21;
 
 type
   TfrmTest = class(TForm)
@@ -70,7 +71,7 @@ type
     cmbSenaryo: TComboBox;
     Label21: TLabel;
     cmbTip: TComboBox;
-    pcMain: TPageControl;
+    pcFatura: TPageControl;
     tsAyar: TTabSheet;
     Label22: TLabel;
     tsFatura: TTabSheet;
@@ -117,6 +118,13 @@ type
     btnPdf: TButton;
     Label30: TLabel;
     txtAliciEposta: TEdit;
+    pcMain: TPageControl;
+    tseFatura: TTabSheet;
+    TabSheet1: TTabSheet;
+    pceIrsaliye: TPageControl;
+    tsIrsaliyeYarat: TTabSheet;
+    Panel6: TPanel;
+    btnIrsaliyeKaydet: TButton;
     procedure btnKaydetClick(Sender: TObject);
     procedure btnAcClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -141,6 +149,7 @@ type
     procedure cmbSenaryoChange(Sender: TObject);
     procedure btnPdfClick(Sender: TObject);
     procedure tsHtmlShow(Sender: TObject);
+    procedure btnIrsaliyeKaydetClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -368,6 +377,17 @@ begin
   Doc.Write(TEncoding.UTF8.GetString(Entegrator.GetirHtml(Yon, TBelge(GetEnumValue(TypeInfo(TBelge), cmbBelge.Text)), txtETTN.Text)));
   Doc.Close;
 //  Foriba.Free;
+end;
+
+procedure TfrmTest.btnIrsaliyeKaydetClick(Sender: TObject);
+var
+  Irsaliye: IXMLDespatchAdviceType;
+begin
+  Irsaliye := NewDespatchAdvice();
+  if dlgSave.Execute then
+  begin
+    Irsaliye.OwnerDocument.SaveToFile(dlgSave.FileName);
+  end;
 end;
 
 procedure TfrmTest.btnKaydetClick(Sender: TObject);
