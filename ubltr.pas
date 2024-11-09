@@ -656,7 +656,7 @@ begin
       if (Vergiler[i].Tevkifat = Vergi.Tevkifat) and (Vergiler[i].Kodu = Vergi.Kodu) and (Vergiler[i].Oran = Vergi.Oran) then
       begin
         Vergiler[i].Matrah := Vergiler[i].Matrah + Vergi.Matrah;
-        Vergiler[i].Tutar := Vergiler[i].Matrah + Vergi.Matrah;
+        Vergiler[i].Tutar := Vergiler[i].Tutar + Vergi.Tutar;
         Mevcut := true;
       end
     end;
